@@ -25,7 +25,7 @@ import {
   restoreSessionChanges
 } from "../src/session-files.js";
 import { openDatabase } from "../src/sqlite.js";
-import { assertSqliteWritable } from "../src/sqlite-state.js";
+import { assertSqliteWritable, detectStateDb } from "../src/sqlite-state.js";
 import {
   TransactionJournal,
   findPendingTransactions,
@@ -1871,6 +1871,36 @@ test("runSync updates legacy root sqlite database when sqlite-dir state is stale
   } finally {
     staleDb.close();
   }
+});
+
+test("database detection counts compressed rollouts when both state databases exist", async () => {
+  const { codexHome } = await makeTempCodexHome();
+  const sessions = path.join(codexHome, "sessions", "2026", "11", "04");
+  const archived = path.join(codexHome, "archived_sessions");
+  await fs.mkdir(sessions, { recursive: true });
+  await fs.mkdir(archived, { recursive: true });
+  await fs.writeFile(path.join(sessions, "rollout-a.jsonl"), "{}\n");
+  await fs.writeFile(path.join(sessions, "rollout-b.jsonl.zst"), "compressed fixture");
+  await fs.writeFile(path.join(sessions, "rollout-c.jsonl.zst"), "compressed fixture");
+  await fs.writeFile(path.join(archived, "rollout-d.jsonl.zst"), "compressed fixture");
+  await writeStateDb(codexHome, [{ id: "a", model_provider: "openai" }]);
+  await writeLegacyStateDb(codexHome, ["a", "b", "c", "d"].map((id) => ({ id, model_provider: "openai" })));
+
+  const selected = await detectStateDb(codexHome);
+  assert.equal(selected.path, legacyStateDbPath(codexHome));
+});
+
+test("database detection does not double count plain and compressed copies of one rollout", async () => {
+  const { codexHome } = await makeTempCodexHome();
+  const sessions = path.join(codexHome, "sessions");
+  await fs.mkdir(sessions, { recursive: true });
+  await fs.writeFile(path.join(sessions, "rollout-a.jsonl"), "{}\n");
+  await fs.writeFile(path.join(sessions, "rollout-a.jsonl.zst"), "compressed fixture");
+  await writeStateDb(codexHome, [{ id: "a", model_provider: "openai" }]);
+  await writeLegacyStateDb(codexHome, ["a", "b"].map((id) => ({ id, model_provider: "openai" })));
+
+  const selected = await detectStateDb(codexHome);
+  assert.equal(selected.path, stateDbPath(codexHome));
 });
 
 test("runSync uses an explicit SQLite home and never touches a stale Codex Home database", async () => {

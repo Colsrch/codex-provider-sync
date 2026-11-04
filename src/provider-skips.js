@@ -101,7 +101,12 @@ export function selectProviderRows(home, scan, state, targetProvider, additional
       && matches.every(file => file.id === String(row.id) && file.historyMode === "paginated");
     const conflict = (matches.length > 1 && !paginatedGroup)
       || (pathMatch?.id && String(row.id) !== pathMatch.id && state.key !== "rowid");
-    rowMatches.set(row, { matches, conflict });
+    // A recorded path is authoritative evidence of another rollout. If it
+    // was not scanned (for example .jsonl.zst, a deleted file, or an unsafe
+    // path), an ID match to a different file cannot prove this row is safe.
+    const unverifiedPath = typeof row.rollout_path === "string"
+      && row.rollout_path.length > 0 && !pathMatch;
+    rowMatches.set(row, { matches, conflict, unverifiedPath });
     for (const match of matches) {
       const key = providerPathKey(match.path);
       const owners = ownersByPath.get(key) ?? [];
@@ -132,11 +137,12 @@ export function selectProviderRows(home, scan, state, targetProvider, additional
   const rowSkips = [];
   for (const row of rows) {
     if (row.model_provider === targetProvider) continue;
-    const { matches, conflict } = rowMatches.get(row);
+    const { matches, conflict, unverifiedPath } = rowMatches.get(row);
     let reason = conflict ? "association-conflict" : null;
     const skippedMatch = matches.find(file => skippedPaths.has(providerPathKey(file.path)));
     const fileSkip = skippedMatch ? skipped.find(item => item.kind === "rollout" && providerPathKey(item.path) === providerPathKey(skippedMatch.path)) : null;
     if (!reason && fileSkip) reason = fileSkip.reason;
+    if (!reason && unverifiedPath) reason = "association-unknown";
     if (!reason && unknown && (matches.length === 0 || matches.some(file => file.historyMode === "paginated"))) reason = "association-unknown";
     if (reason) rowSkips.push({ kind: "sqlite", id: String(row.id), reason, stage: "plan", retryable: !conflict && fileSkip?.retryable === true });
     else selected.push({ ...row, paths: matches.map(file => file.path) });

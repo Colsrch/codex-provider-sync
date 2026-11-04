@@ -115,6 +115,8 @@ flowchart LR
 
 普通同步只对齐 Provider；专项修复和恢复需要明确选择。旧 .NET Windows/macOS 版仍作为兼容实现维护。
 
+SQLite Home 的自动识别使用包括压缩日志在内的数量启发式；多个数据库并存时请核对概览中的实际路径，必要时显式指定。当前同步不改写 `.jsonl.zst` 压缩会话，无法验证记录路径的 SQLite 行会保留并报告部分完成。
+
 开发者可查看[当前 Node Core 架构](docs/architecture/NODE_CORE_ARCHITECTURE_ZH.md)和 [Electron + Node 架构基线](docs/VNEXT_ELECTRON_NODE_ARCHITECTURE_ZH.md)。
 
 ## 同步如何读写，速度取决于什么

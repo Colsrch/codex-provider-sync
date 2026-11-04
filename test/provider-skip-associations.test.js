@@ -7,6 +7,21 @@ const home = path.resolve("D:/synthetic-associations");
 const good = path.join(home, "sessions", "rollout-good.jsonl");
 const bad = path.join(home, "sessions", "rollout-bad.jsonl");
 const row = (id, rollout_path) => ({ id, rollout_path, model_provider: "old" });
+test("a row whose recorded rollout cannot be inspected is not synchronized", () => {
+  const missing = path.join(home, "sessions", "rollout-compressed.jsonl");
+  const scan = { files: [{ path: good, id: "good", historyMode: "paginated" }], skippedItems: [] };
+  const state = { key: "id", rows: [row("good", good), row("compressed", `${missing}.zst`), row("missing", missing)] };
+  const result = selectProviderRows(home, scan, state, "openai");
+  assert.deepEqual(result.rows.map(item => item.id), ["good"]);
+  assert.deepEqual(result.skippedItems.map(item => [item.id, item.reason]), [
+    ["compressed", "association-unknown"], ["missing", "association-unknown"]
+  ]);
+  const wrongAnchor = selectProviderRows(home, scan, {
+    key: "id", rows: [row("good", `${good}.zst`)]
+  }, "openai");
+  assert.deepEqual(wrongAnchor.rows, [], "a matching ID cannot validate another unscanned path");
+  assert.equal(wrongAnchor.skippedItems[0].reason, "association-unknown");
+});
 test("duplicate ID and path associations are excluded without guessing from filenames", () => {
   const scan = { files: [{ path: good, id: "same" }, { path: bad, id: "same" }], skippedItems: [] };
   const result = selectProviderRows(home, scan, { key: "id", rows: [row("same", good), row("other", null)] }, "openai");

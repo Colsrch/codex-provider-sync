@@ -97,7 +97,7 @@ async function smokeInstalledWeb(tempRoot, codexHome) {
   const installedCliPath = path.join(
     tempRoot,
     "node_modules",
-    "@dailin521",
+    "@colsrch",
     "codex-provider-sync",
     "src",
     "cli.js"

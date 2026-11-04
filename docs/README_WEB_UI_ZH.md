@@ -9,7 +9,7 @@ Web 版是 CLI 提供的本地浏览器界面，复用与桌面版相同的 Node
 Web UI 由 CLI 提供。安装 Node.js `16.20.2+` 后，安装本项目官方 npm 包并启动：
 
 ```bash
-npm install -g @dailin521/codex-provider-sync
+npm install -g @colsrch/codex-provider-sync
 codex-provider web
 ```
 
@@ -31,7 +31,7 @@ codex-provider web --codex-home /path/to/.codex --sqlite-home /path/to/sqlite
 运行中的服务按 `Ctrl+C` 停止。升级已安装的 CLI/Web UI：
 
 ```bash
-npm install -g @dailin521/codex-provider-sync@latest
+npm install -g @colsrch/codex-provider-sync@latest
 ```
 
 从仓库开发时使用 Node 24，在仓库根目录运行：

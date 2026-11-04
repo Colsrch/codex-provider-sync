@@ -51,7 +51,7 @@ async function sourceFiles(relativeRoot) {
 }
 
 const rootManifest = await readJson("package.json");
-assert(rootManifest.name === "@dailin521/codex-provider-sync", "Root npm package name changed.");
+assert(rootManifest.name === "@colsrch/codex-provider-sync", "Root npm package name changed.");
 assert(rootManifest.bin?.["codex-provider"] === "src/cli.js", "Root CLI bin changed.");
 assert(rootManifest.engines?.node === ">=16.20.2", "Root Node 16 compatibility contract changed.");
 assert(Array.isArray(rootManifest.workspaces), "Root npm workspaces are not enabled.");

@@ -5,7 +5,7 @@
 ### Help reuse existing Codex sessions after switching providers
 
 [![CI](https://github.com/Dailin521/codex-provider-sync/actions/workflows/ci.yml/badge.svg)](https://github.com/Dailin521/codex-provider-sync/actions/workflows/ci.yml)
-[![CLI / Web](https://img.shields.io/npm/v/%40dailin521%2Fcodex-provider-sync?label=CLI%20%2F%20Web)](https://www.npmjs.com/package/@dailin521/codex-provider-sync)
+[![CLI / Web](https://img.shields.io/npm/v/%40colsrch%2Fcodex-provider-sync?label=CLI%20%2F%20Web)](https://www.npmjs.com/package/@colsrch/codex-provider-sync)
 [![Releases](https://img.shields.io/github/v/release/Dailin521/codex-provider-sync?label=Releases)](https://github.com/Dailin521/codex-provider-sync/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE)
 
@@ -63,7 +63,7 @@ You can also browse chats by project, right-click to copy session IDs/resume com
 Install Node.js `16.20.2+`, then get the currently published CLI / Web npm version:
 
 ```bash
-npm install -g @dailin521/codex-provider-sync
+npm install -g @colsrch/codex-provider-sync
 codex-provider web
 ```
 

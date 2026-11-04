@@ -1,9 +1,9 @@
 # npm 发布维护指南
 
-官方 CLI/Web 包名为 `@dailin521/codex-provider-sync`：
+本 fork 的 CLI/Web 包名为 `@colsrch/codex-provider-sync`，与上游包独立发布：
 
 ```bash
-npm install -g @dailin521/codex-provider-sync
+npm install -g @colsrch/codex-provider-sync
 ```
 
 npm 包只包含 Node CLI、Web UI 和相关文档。它与 Windows GUI 的 GitHub Release 独立发布；仅更新 CLI/Web 时，不创建 Git tag 或 Windows Release。
@@ -21,18 +21,18 @@ npm 包只包含 Node CLI、Web UI 和相关文档。它与 Windows GUI 的 GitH
    ```
 
 3. 合并到 `main` 并确认 `ci-gate` 成功。
-4. 在 GitHub Actions 手动运行 `publish npm`。工作流仅允许从 `main` 运行，使用 npm Trusted Publisher 的短期 OIDC 凭据，不需要长期 npm token。
+4. 配置 Trusted Publisher 后，在 GitHub Actions 手动运行 `publish npm`。工作流仅允许从 `main` 运行，使用 npm Trusted Publisher 的短期 OIDC 凭据，不需要长期 npm token。
 5. 发布后核对：
 
    ```bash
-   npm view @dailin521/codex-provider-sync version
-   npm install -g @dailin521/codex-provider-sync@latest
+   npm view @colsrch/codex-provider-sync version
+   npm install -g @colsrch/codex-provider-sync@latest
    codex-provider --help
    ```
 
 Trusted Publisher 配置：
 
-- GitHub 用户或组织：`Dailin521`
+- GitHub 用户或组织：`Colsrch`
 - 仓库：`codex-provider-sync`
 - 工作流文件：`publish-npm.yml`
 - Environment：`npm`

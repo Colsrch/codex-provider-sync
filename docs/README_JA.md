@@ -5,7 +5,7 @@
 ### Provider 切り替え後に Codex の既存セッションを再利用するためのツール
 
 [![CI](https://github.com/Dailin521/codex-provider-sync/actions/workflows/ci.yml/badge.svg)](https://github.com/Dailin521/codex-provider-sync/actions/workflows/ci.yml)
-[![CLI / Web](https://img.shields.io/npm/v/%40dailin521%2Fcodex-provider-sync?label=CLI%20%2F%20Web)](https://www.npmjs.com/package/@dailin521/codex-provider-sync)
+[![CLI / Web](https://img.shields.io/npm/v/%40colsrch%2Fcodex-provider-sync?label=CLI%20%2F%20Web)](https://www.npmjs.com/package/@colsrch/codex-provider-sync)
 [![Releases](https://img.shields.io/github/v/release/Dailin521/codex-provider-sync?label=Releases)](https://github.com/Dailin521/codex-provider-sync/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE)
 [![Community](https://img.shields.io/badge/community-LINUX%20DO-2ea043.svg)](https://linux.do/)
@@ -62,7 +62,7 @@ macOS/Linux 向け Electron パッケージは未公開です。CLI / Web の np
 Node.js `16.20.2+` をインストールしてから、公開済みの CLI / Web npm パッケージを実行します。
 
 ```bash
-npm install -g @dailin521/codex-provider-sync
+npm install -g @colsrch/codex-provider-sync
 codex-provider web
 ```
 

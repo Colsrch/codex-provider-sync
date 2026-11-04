@@ -7,7 +7,7 @@
 已发布根包支持 Node.js `16.20.2+`；从仓库构建完整工作区使用 Node 24。
 
 ```bash
-npm install -g @dailin521/codex-provider-sync
+npm install -g @colsrch/codex-provider-sync
 codex-provider help
 codex-provider status
 ```

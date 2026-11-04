@@ -23,7 +23,7 @@ async function manifest(relativePath) {
 
 test("root npm package remains a Node 16 surface with only the audited shared Web runtime", async () => {
   const root = await manifest("");
-  assert.equal(root.name, "@dailin521/codex-provider-sync");
+  assert.equal(root.name, "@colsrch/codex-provider-sync");
   assert.equal(root.engines.node, ">=16.20.2");
   assert.equal(root.bin["codex-provider"], "src/cli.js");
   assert.deepEqual(root.dependencies ?? {}, {});

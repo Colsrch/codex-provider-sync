@@ -5,7 +5,7 @@
 ### Provider 전환 후 기존 Codex 세션을 다시 사용할 수 있도록 돕습니다
 
 [![CI](https://github.com/Dailin521/codex-provider-sync/actions/workflows/ci.yml/badge.svg)](https://github.com/Dailin521/codex-provider-sync/actions/workflows/ci.yml)
-[![CLI / Web](https://img.shields.io/npm/v/%40dailin521%2Fcodex-provider-sync?label=CLI%20%2F%20Web)](https://www.npmjs.com/package/@dailin521/codex-provider-sync)
+[![CLI / Web](https://img.shields.io/npm/v/%40colsrch%2Fcodex-provider-sync?label=CLI%20%2F%20Web)](https://www.npmjs.com/package/@colsrch/codex-provider-sync)
 [![Releases](https://img.shields.io/github/v/release/Dailin521/codex-provider-sync?label=Releases)](https://github.com/Dailin521/codex-provider-sync/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE)
 [![Community](https://img.shields.io/badge/community-LINUX%20DO-2ea043.svg)](https://linux.do/)
@@ -62,7 +62,7 @@ macOS/Linux Electron 패키지는 아직 공개되지 않았습니다. CLI / Web
 Node.js `16.20.2+`를 설치한 뒤 공개된 CLI / Web npm 패키지를 실행합니다.
 
 ```bash
-npm install -g @dailin521/codex-provider-sync
+npm install -g @colsrch/codex-provider-sync
 codex-provider web
 ```
 

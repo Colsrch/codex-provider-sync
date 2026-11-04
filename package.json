@@ -1,5 +1,5 @@
 {
-  "name": "@dailin521/codex-provider-sync",
+  "name": "@colsrch/codex-provider-sync",
   "version": "1.0.4",
   "description": "Synchronize Codex session provider metadata across rollout files and SQLite state.",
   "type": "module",
@@ -68,11 +68,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Dailin521/codex-provider-sync.git"
+    "url": "git+https://github.com/Colsrch/codex-provider-sync.git"
   },
-  "homepage": "https://github.com/Dailin521/codex-provider-sync#readme",
+  "homepage": "https://github.com/Colsrch/codex-provider-sync#readme",
   "bugs": {
-    "url": "https://github.com/Dailin521/codex-provider-sync/issues"
+    "url": "https://github.com/Colsrch/codex-provider-sync"
   },
   "publishConfig": {
     "access": "public"

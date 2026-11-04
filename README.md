@@ -2,10 +2,12 @@
 
 # codex-provider-sync
 
+本仓库是 [Dailin521/codex-provider-sync](https://github.com/Dailin521/codex-provider-sync) 的独立 fork，npm 包 `@colsrch/codex-provider-sync` 由 fork 维护，版本及发布与上游分别管理。
+
 ### 切换 Provider 后，帮助 Codex 旧会话重新可用
 
 [![CI](https://github.com/Dailin521/codex-provider-sync/actions/workflows/ci.yml/badge.svg)](https://github.com/Dailin521/codex-provider-sync/actions/workflows/ci.yml)
-[![CLI / Web](https://img.shields.io/npm/v/%40dailin521%2Fcodex-provider-sync?label=CLI%20%2F%20Web)](https://www.npmjs.com/package/@dailin521/codex-provider-sync)
+[![CLI / Web](https://img.shields.io/npm/v/%40colsrch%2Fcodex-provider-sync?label=CLI%20%2F%20Web)](https://www.npmjs.com/package/@colsrch/codex-provider-sync)
 [![Releases](https://img.shields.io/github/v/release/Dailin521/codex-provider-sync?label=Releases)](https://github.com/Dailin521/codex-provider-sync/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Community](https://img.shields.io/badge/community-LINUX%20DO-2ea043.svg)](https://linux.do/)
@@ -64,7 +66,7 @@ macOS/Linux Electron 包尚未发布；CLI / Web 的 npm 版本独立发布。
 安装 Node.js `16.20.2+` 后运行，获得 npm 当前已发布的 CLI / Web 版本：
 
 ```bash
-npm install -g @dailin521/codex-provider-sync
+npm install -g @colsrch/codex-provider-sync
 codex-provider web
 ```
 

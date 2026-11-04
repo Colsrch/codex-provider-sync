@@ -33,6 +33,10 @@ Codex Home：显式 CLI 参数或可信存储 Profile → `CODEX_HOME` → `~/.c
 
 SQLite Home：显式参数/Profile → config 根级 `sqlite_home` → `CODEX_SQLITE_HOME` → `<Codex Home>/sqlite`。只有默认布局允许检查旧位置 `<Codex Home>/state_5.sqlite`；显式位置缺 DB 时不能偷偷回退。最终只操作一个选中的 state DB。
 
+默认布局的两个数据库同时存在时，自动选择使用会话数量等信息作启发式比较；计数包含 `.jsonl.zst`，同目录同名的 `.jsonl` / `.jsonl.zst` 只计一次。这不能证明哪个数据库正被 Codex 使用，状态页会显示实际选择的路径；如选择不符，应显式指定 SQLite Home。
+
+当前普通同步不读取或改写压缩会话。SQLite 行记录了 rollout 路径而该路径不在本轮已扫描的文件中（包括路径缺失或指向 `.jsonl.zst`）时，保留该行并报告 `association-unknown`，不将只改索引称为同步成功。没有路径字段的旧索引保留既有兼容行为。
+
 Windows 的 WSL UNC SQLite 路径仅诊断，不执行数据库写入。需要在对应 WSL 内使用 Linux 路径运行 CLI，不能靠换一个界面绕过限制。
 
 实际解析见 [storage-layout.js](../src/storage-layout.js)、[sqlite-state.js](../src/sqlite-state.js)。这里不承诺某一版 Codex 的项目首屏数量或显示缓存行为；不通过修改时间把历史顶到前面。

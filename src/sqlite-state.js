@@ -40,17 +40,21 @@ async function countRolloutFilesInDir(rootDir) {
   }
 
   let count = 0;
+  const rolloutNames = new Set();
   for (const entry of entries) {
     const fullPath = path.join(rootDir, entry.name);
     if (entry.isDirectory()) {
       count += await countRolloutFilesInDir(fullPath);
       continue;
     }
-    if (entry.isFile() && entry.name.startsWith("rollout-") && entry.name.endsWith(".jsonl")) {
-      count += 1;
+    if (entry.isFile() && entry.name.startsWith("rollout-")
+      && (entry.name.endsWith(".jsonl") || entry.name.endsWith(".jsonl.zst"))) {
+      // A compressed history still represents a rollout when choosing the
+      // active index. Count a plain/compressed pair only once.
+      rolloutNames.add(entry.name.endsWith(".zst") ? entry.name.slice(0, -4) : entry.name);
     }
   }
-  return count;
+  return count + rolloutNames.size;
 }
 
 async function countRolloutFiles(codexHome) {

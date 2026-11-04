@@ -1,5 +1,7 @@
 # vNext 行为兼容 Fixture 清单
 
+`sync-service.test.js` 的双数据库 fixture 用一条普通日志和多条压缩日志验证默认选择；`provider-skip-associations.test.js` 与 `provider-paginated-groups.test.js` 验证压缩或缺失路径保留索引 Provider，同时独立健康会话仍能同步并返回 partial。所有文件均为合成 fixture，不读取真实用户 Home。
+
 `test/provider-header-validation.test.js` 覆盖非法 UTF-8、数组 payload、序列化及语义比较容量失败、有效替换字符和跨块编码、BOM、普通/归档混合数据、冻结排除、写前变化、关联索引保留及恢复范围。日志/UI/生产 Electron 混合数据验收覆盖新增原因码，继续执行 128 MiB 和 PIO 门禁。
 
 当前 Provider 跳过合同见 [ADR-0045](../adr/0045-isolated-provider-data-skips.md)，分页组选择见 [ADR-0047](../adr/0047-paginated-provider-associations.md)：内部逐文件/逐行计划绑定、可信 ID/historyMode、关联索引排除、已知未写恢复范围及有界本机日志。`test/provider-skip-data.test.js` 与 `test/provider-paginated-groups.test.js` 覆盖混合数据、未知归属、冻结排除、删除、受锚定分页组和 SQLite-only 收敛。全局故障和 Repair/Restore 仍严格；不完整状态不能宣称对齐。

@@ -69,6 +69,33 @@ function hash(value) {
   return createHash("sha256").update(value).digest("hex");
 }
 
+test("unscanned compressed and missing rollouts keep their SQLite provider while healthy sessions sync", async () => {
+  const f = await paginatedFixture({
+    files: [{ name: "rollout-healthy.jsonl", id: "healthy", provider: "openai" }],
+    rows: [
+      { id: "healthy", file: "rollout-healthy.jsonl", provider: "openai" },
+      { id: "compressed", rolloutPath: "PLACEHOLDER", provider: "openai" },
+      { id: "missing", rolloutPath: "MISSING", provider: "openai" }
+    ]
+  });
+  const compressed = path.join(f.home, "sessions", "rollout-compressed.jsonl.zst");
+  const missing = path.join(f.home, "sessions", "rollout-missing.jsonl");
+  await fs.writeFile(compressed, "not read by provider sync");
+  const db = await openDatabase(f.dbPath);
+  try {
+    db.prepare("UPDATE threads SET rollout_path = ? WHERE id = ?").run(compressed, "compressed");
+    db.prepare("UPDATE threads SET rollout_path = ? WHERE id = ?").run(missing, "missing");
+  } finally { db.close(); }
+
+  const plan = await prepareSync({ codexHome: f.home });
+  const result = await applySync({ schemaVersion: 1, planId: plan.planId });
+  assert.equal(result.result.partial, true);
+  assert.equal(await f.provider("healthy"), "prov_a");
+  assert.equal(await f.provider("compressed"), "openai");
+  assert.equal(await f.provider("missing"), "openai");
+  assert.equal(await fs.readFile(compressed, "utf8"), "not read by provider sync");
+});
+
 async function paginatedFixture({ configProvider = "prov_a", files, rows }) {
   const root = await temporaryRoot();
   const home = path.join(root, "home");
